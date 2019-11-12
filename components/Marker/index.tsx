@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MapContext } from '../Map';
 import useBindEvents from '../../hooks/useBindEvents';
-import { IconFontType, iconFontContent, IconFontProps } from '../Icons';
+import { IconFontType, iconStr, IconFontProps } from '../Icon';
 import { IEvents } from '../../types';
 
 const { useContext, useEffect, useState } = React;
@@ -56,7 +56,7 @@ export function IconMarker(props: IconMarkerProps) {
     <Marker
       markerOptions = { {
         position,
-        content: iconFontContent(type, iconFontProps),
+        content: iconStr(type, iconFontProps),
       } }
     />
   )

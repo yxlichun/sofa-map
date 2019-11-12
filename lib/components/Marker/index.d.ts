@@ -1,5 +1,5 @@
 import { IEvents } from '../../../types';
-import { IconFontProps, IconFontType } from '../Icons';
+import { IconFontProps, IconFontType } from '../Icon';
 
 export interface MarkerOptions {
   position: any; // AMap.LocationValue[] | AMap.LocationValue[][] | undefined;

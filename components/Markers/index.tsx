@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MapContext } from '../Map';
 import useBindEvents from '../../hooks/useBindEvents';
-import { iconFontContent } from '../Icons';
+import { iconStr } from '../Icon';
 import { IconMarkerProps, MarkerOptions } from '../Marker';
 import { IEvents } from '../../types';
 
@@ -43,7 +43,7 @@ function Markers(props: MarkersProps) {
         if (item.position) {
           const { position, type, ...iconFontProps } = item;
           markerOptions.position = item.position;
-          markerOptions.content = iconFontContent(type, iconFontProps);
+          markerOptions.content = iconStr(type, iconFontProps);
         }
         return new AMap.Marker(markerOptions);
       });

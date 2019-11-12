@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Player, { PlayerProps } from '../Player';
-import Map, { MapProps } from '../../components/Map';
+import Map, { MapProps } from '../Map';
 
 export interface MapPlayerProps extends PlayerProps {
   children: any;

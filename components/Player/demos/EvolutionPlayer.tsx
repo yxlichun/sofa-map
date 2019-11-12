@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Player from '../Player';
-import Map, { MapContext } from '../../components/Map';
-import NavigateComponent from '../../components/Navigate';
-import Polyline from '../../components/Polyline';
+import Player from '../index';
+import Map, { MapContext } from '../../Map';
+import Polyline from '../../Polyline';
 
 export interface EvolutionPlayerProps {
 
