@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-      "outDir": "lib2",
+      "outDir": "lib",
       "sourceMap": true,
       "noImplicitAny": true,
       "strict": true,
@@ -24,8 +24,9 @@
       ],
       "typeRoots" : [
         "./node_modules/@types",
-        "./node_modules/amap-js-api-typings",
+        "./node_modules/amap-js-api-typings"
       ]
-  }
+  },
+  "include": ["./components/**/*", "./hooks/**/*"]
 }
 
