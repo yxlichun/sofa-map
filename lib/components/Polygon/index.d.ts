@@ -1,4 +1,4 @@
-import { IEvents } from '../../types';
+import { IEvents } from '../../../types';
 
 export interface PolygonProps {
   polygonOptions: {

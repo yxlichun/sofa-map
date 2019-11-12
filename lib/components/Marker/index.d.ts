@@ -1,4 +1,5 @@
-import { IEvents } from '../../types';
+import { IEvents } from '../../../types';
+import { IconFontProps, IconFontType } from '../Icons';
 
 export interface MarkerOptions {
   position: any; // AMap.LocationValue[] | AMap.LocationValue[][] | undefined;
@@ -13,3 +14,11 @@ export interface MarkerProps {
 declare function Marker(props: MarkerProps): any;
 
 export default Marker;
+
+export interface IconMarkerProps extends IconFontProps {
+  position: any;
+  type: IconFontType;
+}
+
+export function IconMarker(props: IconMarkerProps): any;
+

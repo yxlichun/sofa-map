@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-      "outDir": "./lib/",
+      "outDir": "lib",
       "sourceMap": true,
       "noImplicitAny": true,
       "strict": true,
@@ -26,10 +26,6 @@
         "./node_modules/@types",
         "./node_modules/amap-js-api-typings",
       ]
-  },
-  "include": [
-      "./*.d.ts",
-      "./components/**/*",
-  ]
+  }
 }
 

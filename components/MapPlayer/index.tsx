@@ -18,7 +18,7 @@ export interface FrameProps {
 
 const { useState, useEffect } = React;
 
-function EvolutionPlayer(props: MapPlayerProps) {
+function MapPlayer(props: MapPlayerProps) {
   const { data, children, mapProps, onFrameChange, ...playerProps } = props;
 
   // 帧数据
@@ -36,7 +36,6 @@ function EvolutionPlayer(props: MapPlayerProps) {
   }, [data]);
 
   const onPlay = (current: number) => {
-    console.log('============================playing', current, data);
 
     const timeArray = Object.keys(data);
     const nearestTime: string | undefined = timeArray.find((item, index) => 
@@ -56,7 +55,6 @@ function EvolutionPlayer(props: MapPlayerProps) {
     }
   }
 
-  console.log('============================', frameData, data);
   return (
     <div>
       <Map
@@ -73,4 +71,4 @@ function EvolutionPlayer(props: MapPlayerProps) {
   )
 }
 
-export default EvolutionPlayer;
+export default MapPlayer;
