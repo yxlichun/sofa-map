@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Icon } from 'antd';
 import styled from 'styled-components';
 import { secondToDatetime } from './utils';
 
@@ -131,9 +130,9 @@ function PlayController(props: PlayerProps) {
     <Player left = { left }>
       <div className = "controller__toolbar">
         { (playState === 'stop' || playState === 'pause') &&
-          <Icon type = "caret-right" onClick = { () => setPlayState('playing') } /> }
+          <div onClick = { () => setPlayState('playing') }>播放</div> }
         { playState === 'playing' &&
-          <Icon type = "pause" onClick = { () => setPlayState('pause') }/> }
+          <div onClick = { () => setPlayState('pause') }>暂停</div> }
         { (playState === 'playing' || playState === 'pause') &&
           <div style = { { width: 15, height: 15, background: '#ccc' } } onClick = { () => setPlayState('stop') } /> }
       </div>

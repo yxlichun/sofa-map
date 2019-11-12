@@ -11,6 +11,7 @@
   "author": "lichun",
   "license": "MIT",
   "devDependencies": {
+    "@ant-design/tools": "^8.0.4",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "@types/react": "^16.9.11",
@@ -30,7 +31,6 @@
   },
   "dependencies": {
     "amap-js-api-typings": "^0.1.4",
-    "antd": "^3.25.1",
     "styled-components": "^4.4.1"
   },
   "peerDependencies": {
