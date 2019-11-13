@@ -1,6 +1,6 @@
 {
   "name": "sofa-map",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "typings": "lib/index.d.ts",
