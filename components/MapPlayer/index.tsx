@@ -58,6 +58,7 @@ function MapPlayer(props: MapPlayerProps) {
   return (
     <div>
       <Map
+        style = { { width: 600, height: 400 } }
         { ...mapProps }
       >
         { props.children({ frameData, preTime } as FrameProps) }

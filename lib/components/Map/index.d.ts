@@ -3,6 +3,7 @@ import * as React from 'react';
 export interface MapProps {
   plugins?: AMap.PluginName[];
   mapOptions?: { [key: string]: any };
+  fullScreen?: Boolean;
   style?: any;
   children?: any;
 }
