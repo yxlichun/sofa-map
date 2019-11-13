@@ -1,10 +1,12 @@
 import * as React from 'react';
+require('./map.css');
 
 const { useEffect, useState, useRef } = React;
 
 export interface MapProps {
   plugins?: AMap.PluginName[];
   mapOptions?: { [key: string]: any };
+  fullScreen?: Boolean;
   style?: any;
   children?: any;
 }
@@ -47,11 +49,12 @@ function requireMap(callback: () => any) {
 export const MapContext = React.createContext(null);
 
 function Map(props: MapProps) {
-  const { plugins, style, mapOptions } = props;
+  const { plugins, style, mapOptions, fullScreen } = props;
 
   const [map, setMap]: [AMap.Map | null, (params: any) => void] = useState(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const mapContainer: { current: HTMLDivElement | null } = useRef(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   // 加载地图脚本
   useEffect(() => {
@@ -79,11 +82,12 @@ function Map(props: MapProps) {
     // 加载插件
     AMap.plugin(([
       'AMap.ToolBar',
-      'AMap.Scale',
-      'AMap.Geolocation',
     ].concat(plugins ? plugins : [])) as AMap.PluginName[], () => {
         // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
-        (mapEntity).addControl(new (AMap as any).ToolBar());
+        (mapEntity).addControl(new (AMap as any).ToolBar({
+           // 简易缩放模式，默认为 false
+           liteStyle: true,
+        }));
     });
 
     setMap(mapEntity);
@@ -98,20 +102,39 @@ function Map(props: MapProps) {
   }, [(window as any).AMap, scriptLoaded]);
 
   const containerStyle = {
-    width: 600,
-    height: 400,
+    width: '100%',
+    height: '100%',
     background: '#e0e0e0',
-    ...style,
+  }
+
+  const fullMapStyle = {
+    width: `${window.innerWidth-80}px`,
+    height:  `${window.innerHeight-80}px`,
+  }
+
+  const handleFullScreen = () => {
+    isFullScreen ? setIsFullScreen(false) : setIsFullScreen(true);
+  }
+
+  const handleFitView = () => {
+    if ((Map as any).map) {
+      ((Map as any).map as unknown as AMap.Map).setFitView();
+    }
   }
 
   return(
-    <MapContext.Provider value = { map }>
-      <div style = { containerStyle } ref = { mapContainer }>
-        Map is Loading
-      </div>
-      { props.children }
-    </MapContext.Provider>
-
+    <div className = { isFullScreen ? 'fullMapContainer mapContainer' : 'mapContainer' } style = { isFullScreen ? fullMapStyle : {...style}}>
+      <MapContext.Provider value = { map }>
+        <div style = { containerStyle } ref = { mapContainer }>
+          Map is Loading
+        </div>
+        { props.children }
+      </MapContext.Provider>
+      {
+        fullScreen && <div className = { isFullScreen ? 'fullBtn fullfix' : 'fullBtn' } onClick = { () => handleFullScreen() }></div>
+      }
+      <div className = { isFullScreen ? 'fitViewBtn fullFitViewBtn' : 'fitViewBtn' } onClick = { () => handleFitView() }></div>
+    </div>
   )
 }
 
