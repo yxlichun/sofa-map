@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MapContext } from '../Map';
 import useBindEvents from '../../hooks/useBindEvents';
-import { IEvents } from '../../types';
+import { IEvents } from '../types';
 
 const { useContext, useEffect, useState } = React;
 

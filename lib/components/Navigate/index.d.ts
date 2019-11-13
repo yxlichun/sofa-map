@@ -1,4 +1,4 @@
-import { NavigateType } from '../../../types';
+import { NavigateType } from '../types';
 
 export interface IProps {
   path: AMap.LocationValue[];

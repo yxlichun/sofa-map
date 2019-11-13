@@ -3,7 +3,7 @@ import { MapContext } from '../Map';
 import useBindEvents from '../../hooks/useBindEvents';
 import { iconStr } from '../Icon';
 import { IconMarkerProps, MarkerOptions } from '../Marker';
-import { IEvents } from '../../types';
+import { IEvents } from '../types';
 
 const { useContext, useEffect, useState } = React;
 

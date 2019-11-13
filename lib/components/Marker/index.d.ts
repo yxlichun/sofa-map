@@ -1,4 +1,4 @@
-import { IEvents } from '../../../types';
+import { IEvents } from '../types';
 import { IconFontProps, IconFontType } from '../Icon';
 
 export interface MarkerOptions {

@@ -1,6 +1,6 @@
 // 自定义hook，完成地图组件对事件的统一处理逻辑
 import * as React from 'react';
-import { IEvents } from '../types';
+import { IEvents } from '../components/types';
 
 const { useEffect } = React;
 

@@ -1,5 +1,5 @@
 import { IconMarkerProps } from '../Marker';
-import { IEvents } from '../../../types';
+import { IEvents } from '../types';
 
 export interface MarkersProps {
   data?: IconMarkerProps[];

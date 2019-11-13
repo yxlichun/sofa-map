@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MapContext } from '../Map';
-import { NavigateType } from '../../types';
+import { NavigateType } from '../types';
 
 const { useEffect, useContext } = React;
 
