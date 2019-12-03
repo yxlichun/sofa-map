@@ -9,3 +9,7 @@ export { default as Icon, iconStr } from './components/Icon';
 export { default as MapIcon } from './components/MapIcon';
 
 export { default as MapPlayer } from './components/MapPlayer';
+
+export { default as useMap } from './hooks/useMap';
+export { default as useBindEvents } from './hooks/useBindEvents';
+export { default as useInterval } from './hooks/useInterval';

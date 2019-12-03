@@ -1,0 +1,238 @@
+.player_container{
+  display: flex;
+  height: 72px;
+  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 4px 4px;
+  padding: 0 60px;
+  .anticon {
+    color: #ccc;
+    font-size: 30px;
+    margin: 0 10px;
+  }
+  .controller__toolbar {
+    flex: 3;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    .btn {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid #f7f7f7;
+    }
+    .playing_btn {
+      padding-top: 13px;
+      margin: 0 auto;
+      &:before,&:after{
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: #f7f7f7;
+        display: inline-block;
+        border-radius: 31px;
+      }
+      &:before{
+        margin-left: 13px;
+      }
+      &:after{
+        margin-left: 10px;
+      }
+    }
+    .pause_btn{
+      margin: 0 auto;
+      .player_triangle{
+        top: 12px;
+        left: 15px;
+        &:before{
+          transform-origin: 2px 2px;
+        }
+        &:after{
+          transform-origin: 3px 22px;
+        }
+      }
+      .player_tranggle{
+        left: 20px;
+        top: 18px;
+        width: 11px;
+        height: 12px;
+        border-radius: 0 11px 14px 0;
+      }
+    }
+    .player_triangle,
+    .player_triangle::before,
+    .player_triangle::after{
+      width: 5px;
+      height: 24px;
+      border-radius: 9px;
+    }
+    .small_btn{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #f7f7f7;
+      position: relative;
+      margin: 0 auto;
+    }
+    .stop_btn::after{
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: #f7f7f7;
+      display: inline-block;
+      border-radius: 3px;
+      position: absolute;
+      left: 10px;
+      top: 11px;
+    }
+    .speed_btn{
+      margin-right: 10px;
+      .player_triangle_0,
+      .player_triangle_0::before,
+      .player_triangle_0::after{
+        width: 2px;
+        height: 10px;
+        border-radius: 9px;
+      }
+      .player_triangle_0{
+        top: 14px;
+        left: 10px;
+        &:before{
+          transform-origin: 1px 1px;
+        }
+        &::after{
+          transform-origin: 1px 9px;
+        }
+      }
+      .player_tranggle_0{
+        left: 10px;
+        top: 15px;
+        width: 6px;
+        height: 7px;
+        border-radius: 0 25px 12px 0;
+      }
+      .player_triangle_1,
+      .player_triangle_1::before,
+      .player_triangle_1::after{
+        width: 2px;
+        height: 10px;
+        border-radius: 9px;
+      }
+      .player_triangle_1{
+        top: 14px;
+        left: 20px;
+        &:before{
+          transform-origin: 1px 1px;
+        }
+        &:after{
+          transform-origin: 1px 9px;
+        }
+      }
+      .player_tranggle_1{
+        left: 20px;
+        top: 15px;
+        width: 6px;
+        height: 7px;
+        border-radius: 0 25px 12px 0;
+      }
+    }
+    .speed_text{
+      color: rgba(255,255,255,0.6);
+      top: 9px;
+      left: 51px;
+      font-size: 14px;
+      display: inline-block;
+      width: 50px;
+    }
+  }
+  .controller__timePart{
+    display: flex;
+    flex: 7;
+    color: #fff;
+    line-height: 0px;
+    .controller__timeline {
+      flex-grow: 7;
+      margin: 0 10px;
+      position: relative;
+      height: 4px;
+      background: linear-gradient(270deg,rgba(230,45,42,1) 0%,rgba(245,166,35,1) 100%);
+      box-shadow: 0px 2px 4px 0px rgba(215,50,48,0.2);
+      border-radius: 2px;
+    }
+    .controller__timeline__ball {
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 10px;
+      position: absolute;
+      top: -5px;
+      border: 5px solid #E62D2A;
+    }
+    .time{
+      margin: 0 20px;
+    }
+  }
+}
+
+.start_btn{
+  position: relative;
+  top: -100px;
+  left: 20px;
+  width: 72px;
+  height: 72px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  .player_triangle,
+  .player_triangle::before,
+  .player_triangle::after{
+    width: 8px;
+    height: 33px;
+    border-radius: 4px;
+  }
+  .player_triangle{
+    top: 20px;
+    left: 23px;
+    &:before{
+      transform-origin: 2px 3px;
+    }
+    &:after{
+      transform-origin: 5px 31px;
+    }
+  }
+  .player_tranggle{
+    left: 26px;
+    top: 29px;
+    width: 17px;
+    height: 14px;
+  }
+}
+
+//三角形抽取公共部分，简化代码
+.player_tranggle{
+  position: absolute;
+  background: #f7f7f7;
+}
+.player_triangle,
+.player_triangle::before,
+.player_triangle::after{
+  position: absolute;
+  display: block;
+  background-color: #f7f7f7;
+  content: '';
+}
+.player_triangle{
+  &:before{
+    transform: rotate(-60deg);
+  }
+  &:after{
+    transform: rotate(60deg);
+  }
+}
+//三角形抽取公共部分，简化代码

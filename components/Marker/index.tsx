@@ -3,13 +3,14 @@ import { MapContext } from '../Map';
 import useBindEvents from '../../hooks/useBindEvents';
 import { IconFontType, iconStr, IconFontProps } from '../Icon';
 import { IEvents } from '../types';
-
+// tslint:disable-next-line: no-var-requires
+require('./index.less');
 const { useContext, useEffect, useState } = React;
 
 export interface MarkerOptions {
   position: any; // AMap.LocationValue[] | AMap.LocationValue[][] | undefined;
-  [option: string]: any 
-};
+  [option: string]: any;
+}
 
 export interface MarkerProps {
   markerOptions: MarkerOptions;
@@ -18,6 +19,7 @@ export interface MarkerProps {
 
 function Marker(props: MarkerProps) {
   const { markerOptions, events } = props;
+
   const map = useContext(MapContext);
   const [marker, setMarker]: [any, any] = useState(null);
 
@@ -34,9 +36,28 @@ function Marker(props: MarkerProps) {
 
     const newMarker = new AMap.Marker(markerOptions);
 
+    if (markerOptions.label) {
+      // 设置hover显示marker名称
+      newMarker.on('mouseover', (e: any) => {
+        newMarker.setLabel({
+          offset: new AMap.Pixel(22, 0),  // 设置文本标注偏移量
+          content: markerOptions.label || '',
+        });
+      });
+      newMarker.on('mouseout', (e: any) => {
+        newMarker.setLabel();
+      });
+    }
+
     (map as unknown as AMap.Map).add(newMarker);
 
-    setMarker(marker);
+    setMarker(newMarker);
+
+    return () => {
+      if (newMarker) {
+        (map as unknown as AMap.Map).remove([newMarker]);
+      }
+    }
   }, [map, markerOptions]);
 
   return null;
@@ -44,13 +65,12 @@ function Marker(props: MarkerProps) {
 
 export default Marker;
 
-
-export interface IconMarkerProps extends IconFontProps {
+export interface ConMarkerProps extends IconFontProps {
   position: any;
   type: IconFontType;
 }
 
-export function IconMarker(props: IconMarkerProps) {
+export function IconMarker(props: ConMarkerProps) {
   const { position, type, ...iconFontProps } = props;
   return (
     <Marker
@@ -59,5 +79,5 @@ export function IconMarker(props: IconMarkerProps) {
         content: iconStr(type, iconFontProps),
       } }
     />
-  )
+  );
 }

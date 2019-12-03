@@ -34,6 +34,12 @@ function Polyline(props: PolylineProps) {
     (map as unknown as AMap.Map).add(newPolyline);
 
     setPolyline(newPolyline);
+
+    return () => {
+      if (newPolyline) {
+        (map as unknown as AMap.Map).remove([newPolyline]);
+      }
+    }
   }, [map, polylineOptions]);
 
   return null;

@@ -6,6 +6,7 @@ export interface MapProps {
   fullScreen?: Boolean;
   style?: any;
   children?: any;
+  name?: string;
 }
 
 export function setAMapVersion(version: string): any;

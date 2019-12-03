@@ -8,6 +8,7 @@ export interface MapPlayerProps extends PlayerProps {
     [key: string]: any;
   },
   mapProps?: MapProps;
+  name?: string;
   onFrameChange?: (current: number, nearestTime: any, frameData: any) => any;
 }
 
@@ -38,8 +39,10 @@ function MapPlayer(props: MapPlayerProps) {
   const onPlay = (current: number) => {
 
     const timeArray = Object.keys(data);
+
+    // TODO: 需要验证寻找的是否正确
     const nearestTime: string | undefined = timeArray.find((item, index) => 
-      current >= parseInt(item, 10) && current < parseInt(timeArray[index + 1], 10));
+      current < parseInt(timeArray[index + 1], 10)) || timeArray[timeArray.length - 1];
 
     if (nearestTime && nearestTime !== preTime) {
       setFrameData(data[nearestTime]);
@@ -55,10 +58,13 @@ function MapPlayer(props: MapPlayerProps) {
     }
   }
 
+  (MapPlayer as any).map = (Map as any).map;
+
   return (
-    <div>
+    <>
       <Map
         style = { { width: 600, height: 400 } }
+        name = { name }
         { ...mapProps }
       >
         { props.children({ frameData, preTime } as FrameProps) }
@@ -68,7 +74,7 @@ function MapPlayer(props: MapPlayerProps) {
         onPlay = { onPlay }
         loading = { loading }
       />
-    </div>
+    </>
   )
 }
 

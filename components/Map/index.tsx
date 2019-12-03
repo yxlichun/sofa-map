@@ -1,4 +1,5 @@
 import * as React from 'react';
+// tslint:disable-next-line: no-var-requires
 require('./map.css');
 
 const { useEffect, useState, useRef } = React;
@@ -6,20 +7,21 @@ const { useEffect, useState, useRef } = React;
 export interface MapProps {
   plugins?: AMap.PluginName[];
   mapOptions?: { [key: string]: any };
-  fullScreen?: Boolean;
+  fullScreen?: boolean;
   style?: any;
   children?: any;
+  name?: string; // 当同一页面需要获取多于一个Map实体
 }
 
 export const setAMapVersion = (version: string) => {
   (window as any).AMapVersion = version;
-}
+};
 
 export const getAMapVerion = () => (window as any).AMapVersion;
 
 export const setAMapKey = (key: string) => {
   (window as any).AMapKey = key;
-}
+};
 
 export const getAMapKey = () => (window as any).AMapKey;
 
@@ -48,8 +50,9 @@ function requireMap(callback: () => any) {
 
 export const MapContext = React.createContext(null);
 
+
 function Map(props: MapProps) {
-  const { plugins, style, mapOptions, fullScreen } = props;
+  const { plugins, style, mapOptions, fullScreen, name } = props;
 
   const [map, setMap]: [AMap.Map | null, (params: any) => void] = useState(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -61,69 +64,75 @@ function Map(props: MapProps) {
     requireMap(
       () => {
         setScriptLoaded(true);
-      }
+      },
     );
   }, []);
 
-   // 初始化地图
-   useEffect(() => {
-    if (!scriptLoaded || !(window as any).AMap) {
-      return;
-    }
+  // 初始化地图
+  useEffect(() => {
+  if (!scriptLoaded || !(window as any).AMap) {
+    return;
+  }
 
-    // 初始化地图
-    const mapEntity = new AMap.Map(mapContainer.current as HTMLDivElement, {
-      center: [116.39, 39.9],
-      zoom: 11,
-      ...mapOptions,
-    });
-    (window as any).superMap++;
+  // 初始化地图
+  const mapEntity = new AMap.Map(mapContainer.current as HTMLDivElement, {
+    center: [116.39, 39.9],
+    zoom: 11,
+    ...mapOptions,
+  });
+  (window as any).superMap++;
 
-    // 加载插件
-    AMap.plugin(([
-      'AMap.ToolBar',
-    ].concat(plugins ? plugins : [])) as AMap.PluginName[], () => {
-        // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
-        (mapEntity).addControl(new (AMap as any).ToolBar({
-           // 简易缩放模式，默认为 false
-           liteStyle: true,
-        }));
-    });
+  // 加载插件
+  AMap.plugin(([
+    'AMap.ToolBar',
+  ].concat(plugins ? plugins : [])) as AMap.PluginName[], () => {
+      // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+      (mapEntity).addControl(new (AMap as any).ToolBar({
+          // 简易缩放模式，默认为 false
+          liteStyle: true,
+      }));
+  });
 
-    setMap(mapEntity);
+  setMap(mapEntity);
+
+  if (name) {
+    (Map as any).map = (Map as any).map || {};
+    (Map as any).map[name] = mapEntity;
+  } else {
     (Map as any).map = mapEntity;
+  }
 
-    // 销毁地图
-    return () => {
-      if (map) {
-        (map as AMap.Map).destroy();
-      }
-    };
-  }, [(window as any).AMap, scriptLoaded]);
+  // 销毁地图
+  return () => {
+    if (map) {
+      (map as AMap.Map).destroy();
+    }
+  };
+}, [(window as any).AMap, scriptLoaded]);
 
   const containerStyle = {
     width: '100%',
     height: '100%',
-    background: '#e0e0e0',
-  }
+    background: '#ff9900',
+  };
 
   const fullMapStyle = {
-    width: `${window.innerWidth-80}px`,
-    height:  `${window.innerHeight-80}px`,
-  }
+    width: `${window.innerWidth}px`,
+    height:  `${window.innerHeight}px`,
+  };
 
   const handleFullScreen = () => {
     isFullScreen ? setIsFullScreen(false) : setIsFullScreen(true);
-  }
+  };
 
   const handleFitView = () => {
     if ((Map as any).map) {
       ((Map as any).map as unknown as AMap.Map).setFitView();
     }
-  }
+  };
 
   return(
-    <div className = { isFullScreen ? 'fullMapContainer mapContainer' : 'mapContainer' } style = { isFullScreen ? fullMapStyle : {...style}}>
+    <div className = { isFullScreen ? 'fullMapContainer mapContainer' : 'mapContainer' } style = { isFullScreen ? fullMapStyle : {...style} }>
       <MapContext.Provider value = { map }>
         <div style = { containerStyle } ref = { mapContainer }>
           Map is Loading
@@ -131,11 +140,18 @@ function Map(props: MapProps) {
         { props.children }
       </MapContext.Provider>
       {
-        fullScreen && <div className = { isFullScreen ? 'fullBtn fullfix' : 'fullBtn' } onClick = { () => handleFullScreen() }></div>
+        fullScreen &&
+        <div
+          className = { isFullScreen ? 'fullBtn fullfix' : 'fullBtn' }
+          onClick = { () => handleFullScreen() }
+        />
       }
-      <div className = { isFullScreen ? 'fitViewBtn fullFitViewBtn' : 'fitViewBtn' } onClick = { () => handleFitView() }></div>
+      <div
+        className = { isFullScreen ? 'fitViewBtn fullFitViewBtn' : 'fitViewBtn' }
+        onClick = { () => handleFitView() }
+      />
     </div>
-  )
+  );
 }
 
 export default Map;

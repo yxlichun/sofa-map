@@ -17,3 +17,33 @@ export function secondToDatetime(timestap: number) {
   const s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
   return Y + M + D + h + m + s;
 }
+
+export function secondToMinutetime(statTime: number, endTime: number) {
+  if (!statTime || !endTime || statTime > endTime) {
+    return '';
+  }
+  const difference = Math.round((endTime - statTime ) / 1000);
+  let h = 0;
+  let i = 0;
+  let s = parseInt((difference as unknown as string), 10);
+  if (s > 60) {
+    i = parseInt((s / 60) as unknown as string, 10);
+    s = parseInt((s % 60) as unknown as string, 10);
+    if (i > 60) {
+      h = parseInt((i / 60) as unknown as string, 10);
+      i = parseInt((i % 60) as unknown as string, 10);
+    }
+  }
+  // 补零
+  const zero =  (v: number) => v >= 0 && v < 10 ? "0" + v : v;
+  const h2 = zero(h);
+  const i2 = zero(i);
+  const s2 = zero(s);
+  let differenceRange = "";
+  if (h2 <= 0) {
+    differenceRange = [i2, s2].join(":");
+  } else {
+    differenceRange = [h2, i2, s2].join(":");
+  }
+  return differenceRange;
+}

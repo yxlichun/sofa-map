@@ -1,0 +1,54 @@
+.station-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.station-marker_base{
+  width: 24px;
+  height: 33px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: -5px;
+  background-size: cover;
+}
+.station-marker__image {
+  background-image: url('./images/icon_map_point_station.png');
+  position: relative;
+  div{
+    width: 10px;
+    height: 10px;
+    background: #000;
+    position: absolute;
+    top: 11px;
+    left: 7px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    line-height: 11px;
+  }
+}
+.unselected-marker__image{
+  background-image: url('./images/icon_map_point_unselectedstation.png');
+}
+.warehouse-marker__image {
+  width: 24px;
+  height: 33px;
+  background-image: url('./images/icon_map_point_warehouse.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: -8px;
+  background-size: cover;
+}
+.station-marker__circle {
+  width: 6px;
+  height: 6px;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  z-index: -999;
+  background: #fff;
+}
+.amap-marker-label{
+  border: none;
+  box-shadow: 3px 3px 1px 1px;
+}
